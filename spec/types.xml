@@ -303,6 +303,8 @@
             regex=".*"/>
         <type-constrained baseType="dataHexString" typeName="byte64String" max="130" min="130"
             regex=".*"/>
+        <type-constrained baseType="dataHexString" typeName="byte64to80String" max="162" min="130"
+            regex=".*"/>
         <type-constrained baseType="string" typeName="decimalstring"
             regex="^([+-]([1-9][0-9]*|[0-9]+[.][0-9])|[0-9]+([.][0-9])?)[0-9]*$" min="1"
             max="infinity"/>
@@ -337,7 +339,7 @@
             </field>
         </type-params-wrapper>
         <type-params-wrapper typeName="submitSeedParams">
-            <field fieldName="newSeed" index="0" required="true" type="byte64String"/>
+            <field fieldName="newSeed" index="0" required="true" type="byte64to80String"/>
             <field fieldName="signingPublicKey" index="1" required="true" type="byte32String"/>
             <field fieldName="coinbase" index="2" required="true" type="address"/>
         </type-params-wrapper>

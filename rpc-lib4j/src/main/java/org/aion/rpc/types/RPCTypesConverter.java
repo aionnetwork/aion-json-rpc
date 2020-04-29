@@ -18,7 +18,7 @@ import org.json.JSONObject;
 *
 * AUTO-GENERATED SOURCE FILE.  DO NOT EDIT MANUALLY -- YOUR CHANGES WILL
 * BE WIPED OUT WHEN THIS FILE GETS RE-GENERATED OR UPDATED.
-* GENERATED: 2019-12-12
+* GENERATED: 2020-04-29
 *
 *****************************************************************************/
 public class RPCTypesConverter{
@@ -1481,6 +1481,41 @@ public class RPCTypesConverter{
         }
     }
 
+    public static class Byte64to80StringConverter{
+        private static final Pattern regex = Pattern.compile(".*");
+
+        public static ByteArray decode(Object object){
+            try{
+                if(object==null || object.equals(JSONObject.NULL)) return null;
+                else if (checkConstraints(object.toString())){
+                    return DataHexStringConverter.decode(object);
+                }
+                else{
+                    throw ParseErrorRPCException.INSTANCE;
+                }
+            } catch(Exception e){
+                throw ParseErrorRPCException.INSTANCE;
+            }
+        }
+
+        public static String encode(ByteArray obj){
+            if (obj != null){
+                String result = DataHexStringConverter.encode(obj);
+                if(checkConstraints(result))
+                    return result;
+                else
+                    throw ParseErrorRPCException.INSTANCE;
+            }
+            else{
+                return null;
+            }
+        }
+
+        private static boolean checkConstraints(String s){
+            return regex.matcher(s).find() && s.length() >= 130 && s.length() <= 162;
+        }
+    }
+
     public static class DecimalstringConverter{
         private static final Pattern regex = Pattern.compile("^([+-]([1-9][0-9]*|[0-9]+[.][0-9])|[0-9]+([.][0-9])?)[0-9]*$");
 
@@ -1600,12 +1635,12 @@ public class RPCTypesConverter{
                 if(s.startsWith("[") && s.endsWith("]")){
                     JSONArray jsonArray = new JSONArray(s);
                     if(jsonArray.length() > 3) throw ParseErrorRPCException.INSTANCE;
-                    else obj = new SubmitSeedParams( Byte64StringConverter.decode(jsonArray.opt(0)), Byte32StringConverter.decode(jsonArray.opt(1)), AddressConverter.decode(jsonArray.opt(2)));
+                    else obj = new SubmitSeedParams( Byte64to80StringConverter.decode(jsonArray.opt(0)), Byte32StringConverter.decode(jsonArray.opt(1)), AddressConverter.decode(jsonArray.opt(2)));
                 }
                 else if(s.startsWith("{") && s.endsWith("}")){
                     JSONObject jsonObject = new JSONObject(s);
                     if(jsonObject.keySet().size() > 3) throw ParseErrorRPCException.INSTANCE;
-                    else obj = new SubmitSeedParams( Byte64StringConverter.decode(jsonObject.opt("newSeed")), Byte32StringConverter.decode(jsonObject.opt("signingPublicKey")), AddressConverter.decode(jsonObject.opt("coinbase")));
+                    else obj = new SubmitSeedParams( Byte64to80StringConverter.decode(jsonObject.opt("newSeed")), Byte32StringConverter.decode(jsonObject.opt("signingPublicKey")), AddressConverter.decode(jsonObject.opt("coinbase")));
                 }
                 else{
                     throw ParseErrorRPCException.INSTANCE;
@@ -1620,7 +1655,7 @@ public class RPCTypesConverter{
         public static Object encode(SubmitSeedParams obj){
             try{
                 JSONArray arr = new JSONArray();
-                arr.put(0, Byte64StringConverter.encode(obj.newSeed));
+                arr.put(0, Byte64to80StringConverter.encode(obj.newSeed));
                 arr.put(1, Byte32StringConverter.encode(obj.signingPublicKey));
                 arr.put(2, AddressConverter.encode(obj.coinbase));
                 return arr;
